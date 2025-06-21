@@ -41,7 +41,7 @@ export default function Page() {
       </div>
 
       <div className="col-span-2">
-        <Image src={image2} alt="Family that manages The Wild Oasis" fill />
+        <Image src={image2} alt="Family that manages The Wild Oasis" />
       </div>
 
       <div className="col-span-3">
