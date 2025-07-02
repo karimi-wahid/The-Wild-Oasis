@@ -1,8 +1,9 @@
-import React from "react";
+import { unstable_noStore } from "next/cache";
 import CabinCard from "./CabinCard";
 import { getCabins } from "@/lib/data-service";
 
 const CabinList = async () => {
+  unstable_noStore();
   // getting cabins from the data service
   const cabins = await getCabins();
 
