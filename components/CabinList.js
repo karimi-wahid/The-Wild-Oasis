@@ -6,24 +6,30 @@ const CabinList = async ({ filter }) => {
   unstable_noStore();
   // getting cabins from the data service
   const cabins = await getCabins();
+  console.log("cabins filter", filter);
 
   if (!cabins) return null;
 
-  let dispalyedCabins;
-  if (filter === "all") dispalyedCabins = cabins;
-  if (filter === "small")
-    dispalyedCabins = cabins.filter((cabin) => cabin.maxCapacity <= 3);
-  if (filter === "medium")
-    dispalyedCabins = cabins.filter(
+  let displayedCabins;
+  if (filter === "all") displayedCabins = cabins;
+  else if (filter === "small")
+    displayedCabins = cabins.filter((cabin) => cabin.maxCapacity <= 3);
+  else if (filter === "medium")
+    displayedCabins = cabins.filter(
       (cabin) => cabin.maxCapacity >= 4 && cabin.maxCapacity <= 7
     );
-  if (filter === "large")
-    dispalyedCabins = cabins.filter((cabin) => cabin.maxCapacity <= 8);
+  else if (filter === "large")
+    displayedCabins = cabins.filter((cabin) => cabin.maxCapacity >= 8);
+  else displayedCabins = cabins; // fallback
+
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-      {dispalyedCabins.reverse().map((cabin) => (
-        <CabinCard cabin={cabin} key={cabin.id} />
-      ))}
+      {displayedCabins
+        .slice()
+        .reverse()
+        .map((cabin) => (
+          <CabinCard cabin={cabin} key={cabin.id} />
+        ))}
     </div>
   );
 };
